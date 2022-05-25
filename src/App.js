@@ -77,6 +77,23 @@ export default function App() {
       .catch((error) => console.log(error));
   };
 
+  const onDelete = async (id) => {
+    await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
+      method: "DELETE"
+    })
+      .then((response) => {
+        if (response.status !== 200) {
+          return;
+        } else {
+          setPosts(
+            posts.filter((post) => {
+              return post.id !== id;
+            })
+          );
+        }
+      })
+      .catch((error) => console.log(error));
+  };
   
   return (
     <div className="App">
@@ -89,6 +106,7 @@ export default function App() {
           title={post?.title}
           body={post?.body}
           onEdit={onEdit}
+          onDelete={onDelete}
         />
       ))}
     </div>

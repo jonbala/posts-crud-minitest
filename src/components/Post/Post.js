@@ -4,7 +4,7 @@ import { Input } from '@mantine/core';
 import { Textarea } from '@mantine/core';
 import './Post.css';
 
-export const Post = ({ title, body, id, onEdit}) => {
+export const Post = ({ title, body, id, onEdit, onDelete}) => {
   const [isEdit, setIsEdit] = useState(false);
 
   const handleEdit = () => {
@@ -15,6 +15,10 @@ export const Post = ({ title, body, id, onEdit}) => {
     evt.preventDefault();
     onEdit(id, evt.target.name.value, evt.target.email.value);
     setIsEdit(!isEdit);
+  };
+
+  const handleDelete = () => {
+    onDelete(id);
   };
 
   return (
@@ -45,6 +49,7 @@ export const Post = ({ title, body, id, onEdit}) => {
           <Textarea>{body}</Textarea>
           <div className="buttons__post">
             <Button variant="light" onClick={handleEdit}>Edit</Button>
+            <Button onClick={handleDelete}>Delete</Button>
           </div>
         </div>
       )}
